@@ -7,8 +7,10 @@
 transaction = []
 
 def rec(t): transaction.append(t)
+    # Adds transactions to the list
 
-def add_transaction (transactions):     
+def add_transaction (transactions):
+      # Adds new transactions and re-prompts user until they no longer have any.
     try: 
         what_category = input("Category: ")
         assert len(what_category) <= 30 and len(what_category) > 3
@@ -33,12 +35,13 @@ def add_transaction (transactions):
             rec(f"Expenses: {deposit}")  
 
 def view_summary():
+    # Provides the user with a summary of all transactions that are made 
      if not transaction:
           print("No transactions made.")
           return
      if transaction != []:
         print(rec(transaction))
-        
+        # TODO: Make a for loop to add and show all transactions made by user"
 
 is_running = True
 
@@ -102,4 +105,5 @@ while is_running:
 
     # Potential extension (YAGNI for now):
     # - Add date field if we want time-based filtering later
+
     # - Integrate with logging for audit trail in enterprise version
