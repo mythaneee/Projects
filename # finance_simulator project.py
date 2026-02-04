@@ -3,56 +3,62 @@
 # - Senior Dev: Gen - Defined the function signature and docstring for clarity.
 # - Junior Dev: Myth - Implement the body following the inline comments below.
 # - Code Reviewer: Qaced, Crim - Ensure input validation covers all edge cases; add unit tests later.
+transactions = []
 
-transaction = []
-
-def rec(t): transaction.append(t)
-    """ 
-    Adds transactions to the list
-    """
-
-def add_transaction (transactions):
-      """ 
-      Adds new transactions and re-prompts user until they no longer have any. 
-      """
+def add_transaction ():
+    """ Adds new transactions and re-prompts user until they no longer have any."""
     try: 
-        what_category = input("Category: ")
-        assert len(what_category) <= 30 and len(what_category) > 3
+        category = input("Category: ").strip().lower()
+        assert len(category) <= 30 and len(category) > 3
     except AssertionError:
-        print(f"Invalid, please enter not more than 30 and more than 5 letters.")
-        return {what_category}
-
+        print(f"Invalid, please enter not more than 30 and more than 5 letters."); return {category}
+    
     try:
-        deposit = input("Amount: ")
-        deposit = deposit
-        assert deposit.isdigit()
-    except ValueError, AssertionError:
-        print(f"Please input a numerical value.")
-        return {deposit}
+        amount = input("Amount: ").strip()
+        amount = float(amount)
+    except ValueError:
+        print(f"Please input a numerical value."); return {amount}
 
-    if deposit > "0.00" and deposit != "0.00":
+    if amount > 0.00 and amount != 0.00:
             print(f"Added.")
-            rec(f"Income: {deposit}")
                             
-    else: 
-            print(f"Added.")   
-            rec(f"Expenses: {deposit}")  
+    elif amount < 0:
+            print(f"Added.")         
+
+    data = (category, amount)
+    transaction = tuple(data)
+    transactions.append(transaction)
 
 def view_summary():
-    """ 
-    Provides the user with a summary of all transactions that are made
-    """
-     if not transaction:
+     """ Provides the user with a summary of all transactions that are made """
+
+     if not transactions:
           print("No transactions made.")
-          return
-     if transaction != []:
-        print(rec(transaction))
-        """ 
-        TODO: Make a for loop to add and show all transactions made by user 
-        """
+     else:
+          print(f"Summary: ")
+          print(transactions)
+        
+def proj_savings():
+     """ Projects users' savings based on the amount they decided on and the duration they invest for """
+     Princ = input("How much would you like to invest? ").strip()
+     years = input("How many years would you like to invest this amount for (1, 3 or 5): ").strip()
+     rate = 0.00
+     found = False
+
+     for option, r in [("1", 0.03), ("3", 0.05), ("5", 0.08)]:
+        if years == option:
+            rate = r
+            found = True
+            break
+
+     r = float(rate); n = float(1); t = float(years); P = float(Princ)
+     interest = P *((1+r/n)**(n*t))
+
+     print(f"Your amount after {years} year{'s' if len({years}) > 1 else ''} will be: {interest:.2f}")
 
 is_running = True
 
+""" main loop """
 while is_running:
 
     print(f"Welcome to your Personal Finance Simulator!")
@@ -60,20 +66,11 @@ while is_running:
 
     choice_sel = input("\nEnter choice: ").strip()
 
-    if choice_sel == "1":
-        add_transaction(transaction)
-        continue
-
-    elif choice_sel == "2":
-        view_summary()
-
-    elif choice_sel == "3":
-        pass
-
-    elif choice_sel == "4":
-        is_running = False
-        print(f"This session has ended.")
-    
+    if choice_sel == "1": add_transaction()
+    elif choice_sel == "2": view_summary()
+    elif choice_sel == "3": proj_savings()
+    elif choice_sel == "4":  is_running = False; print(f"This session has ended.")
+            
     # Responsible for collecting and validating ONE new transaction.
     # Enforces business rules: income > 0, expenses < 0, valid category.
     # Re-prompts on bad input (defensive programming — industry standard).
@@ -113,6 +110,4 @@ while is_running:
 
     # Potential extension (YAGNI for now):
     # - Add date field if we want time-based filtering later
-
     # - Integrate with logging for audit trail in enterprise version
-
