@@ -123,3 +123,4 @@ while is_running:
     # Potential extension (YAGNI for now):
     # - Add date field if we want time-based filtering later
     # - Integrate with logging for audit trail in enterprise version
+
