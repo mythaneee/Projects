@@ -15,11 +15,12 @@ Features
 6. Stores and reveals your guesses made in every attempt.
 
 Scoring system:
+
   ≤ 3 attempts → 5 points
   
   ≤ 7 attempts → 3 points
   
-  > 7 attempts → 1 point
+  ≥ 7 attempts → 1 point
 
   10 attempts = 0 point
 
