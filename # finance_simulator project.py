@@ -9,7 +9,7 @@ def add_transact():
     """ Adds new transactions and re-prompts user until they no longer have any."""
     while True:
         category = input("Category: ").strip().lower()
-        if len(category) > 0 <= 30:
+        if 0 < len(category) <= 30:
          break
         print(f"Invalid category: Must be between 1 and 30 characters.")
     
@@ -117,3 +117,4 @@ while is_running:
     elif choice_sel == "2": view_summary()
     elif choice_sel == "3": proj_savings()
     elif choice_sel == "4":  is_running = False; print(f"This session has ended.")    
+
