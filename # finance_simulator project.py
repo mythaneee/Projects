@@ -5,7 +5,7 @@
 # - Code Reviewer: Qaced, Crim - Ensure input validation covers all edge cases; add unit tests later.
 transactions = []
 
-def add_transaction ():
+def add_transact ():
     """ Adds new transactions and re-prompts user until they no longer have any."""
     try: 
         category = input("Category: ").strip().lower()
@@ -34,10 +34,23 @@ def view_summary():
 
      if not transactions:
           print("No transactions made.")
-     else:
-          print(f"Summary: ")
-          print(transactions)
-        
+          return
+     total_inc = 0.00
+     total_exp = 0.00
+     print(f"Summary: ")
+     for cat, amt in transactions:
+          if amt > 0:
+               total_inc += amt
+               print(f" Income: {total_inc:.2f}")
+          elif amt < 0:
+               total_exp += amt
+               print(f" Expenses: {cat}   {total_exp:.2f}")
+     net = total_inc + total_exp
+    
+     print(f" Net: {net:.2f}")
+     if net < 0: 
+          print(f"You are approaching your spending limit for this period.")
+               
 def proj_savings():
      """ Projects users' savings based on the amount they decided on and the duration they invest for """
      Princ = input("How much would you like to invest? ").strip()
@@ -57,7 +70,6 @@ def proj_savings():
      print(f"Your amount after {years} year{'s' if len({years}) > 1 else ''} will be: {interest:.2f}")
 
 is_running = True
-
 """ main loop """
 while is_running:
 
@@ -66,7 +78,7 @@ while is_running:
 
     choice_sel = input("\nEnter choice: ").strip()
 
-    if choice_sel == "1": add_transaction()
+    if choice_sel == "1": add_transact()
     elif choice_sel == "2": view_summary()
     elif choice_sel == "3": proj_savings()
     elif choice_sel == "4":  is_running = False; print(f"This session has ended.")
