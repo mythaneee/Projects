@@ -5,7 +5,7 @@
 # - Code Reviewer: Qaced, Crim - Ensure input validation covers all edge cases; add unit tests later.
 transactions = []
 
-def add_transact(transactions: list) -> None:
+def add_transact():
     """ Adds new transactions and re-prompts user until they no longer have any."""
     while True:
         category = input("Category: ").strip().lower()
@@ -40,34 +40,35 @@ def view_summary():
     total_exp = {}
 
     for cat, amt in transactions:
-     if amt > 0:
-      total_inc += amt
-     elif amt < 0:
-      if cat in total_exp:
-       total_exp[cat] += amt
-     else:
-      total_exp[cat] = amt
+        if amt > 0:
+            total_inc += amt
+        elif amt < 0:
+            if cat in total_exp:
+                total_exp[cat] += amt
+            else:
+                total_exp[cat] = amt
                 
     print(f"Summary: ")
     print(f"Income: {total_inc:.2f}")
     print(f"Expenses: ")
     for cat in total_exp:
-     print(f" {cat.title()}: {total_exp[cat]:.2f}")
+        print(f"  {cat.title()}: {total_exp[cat]:.2f}")
     net = total_inc + sum(total_exp.values()) if total_exp else total_inc
-    print(f"Net: {net:.2f}")
+    print(f" Net: {net:.2f}")
 
     if net < 0: 
-     print(f"Warning: Your balance is negative.")
+            print(f"Warning: Your balance is negative.")
     elif abs(sum(total_exp.values())) > 0.8 * total_inc and total_inc > 0:
-     print(f"Warning: Reaching overspending threshold (80% of income)")
+            print(f"Warning: Reaching overspending threshold (80% of income)")
+                    
+                    
                     
 def proj_savings(transactions: list) -> None:
      """ Projects users' savings based on the amount they decided on and the duration they invest for """
-     
      current = sum(amt for amt in transactions)
      if current <= 0:
-      print("No positive balance to project.")
-      return
+        print("No positive balance to project.")
+        return
      print(f"Current balance available: ${current:,.2f}")
 
      while True:
@@ -85,7 +86,7 @@ def proj_savings(transactions: list) -> None:
 
      scen = {"1": 0.03, "3": 0.05, "5": 0.08}
      while True:       
-        years = input("How many years would you like to invest this amount for (1=0.03% , 3=0.05%  or 5=0.08%): ").strip()
+        years = input("How many years would you like to invest this amount for (1, 3 or 5): ").strip()
         if years in scen:
             years = int(years)
             rate = scen[years]
@@ -117,7 +118,7 @@ while is_running:
 
  choice_sel = input("\nEnter choice: ").strip()
 
- if choice_sel == "1": add_transact(transactions)
+ if choice_sel == "1": add_transact()
  elif choice_sel == "2": view_summary()
- elif choice_sel == "3": proj_savings()
+ elif choice_sel == "3": proj_savings(transactions)
  elif choice_sel == "4":  is_running = False; print(f"This session has ended.")    
