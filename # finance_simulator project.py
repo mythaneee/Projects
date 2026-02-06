@@ -65,12 +65,6 @@ def view_summary():
                     
 def proj_savings(transactions: list) -> None:
      """ Projects users' savings based on the amount they decided on and the duration they invest for """
-     current = sum(amt for amt in transactions)
-     if current <= 0:
-        print("No positive balance to project.")
-        return
-     print(f"Current balance available: ${current:,.2f}")
-
      while True:
         Princ = input("How much would you like to invest? ").strip()
         if Princ == "":
@@ -122,3 +116,4 @@ while is_running:
  elif choice_sel == "2": view_summary()
  elif choice_sel == "3": proj_savings(transactions)
  elif choice_sel == "4":  is_running = False; print(f"This session has ended.")    
+
