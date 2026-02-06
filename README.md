@@ -47,3 +47,4 @@ Features
 3. Generates a summarized version of all transactions.
 4. Calculates net value for user.
 5. Projects investments for 1, 3 or 5 years compounded anually.
+6. Re-prompts users if there are invalid inputs.
