@@ -44,4 +44,6 @@ Allows user to project investmemnts for 1, 3 or 5 years with the amount they dec
 Features
 1. Add transactions of various types
 2. Transactions are classified accordingly
-3. 
+3. Generates a summarized version of all transactions.
+4. Calculates net value for user.
+5. Projects investments for 1, 3 or 5 years compounded anually.
